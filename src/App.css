@@ -1,8 +1,82 @@
+.page-home {
+  min-height: 100svh;
+  box-sizing: border-box;
+  background:
+    radial-gradient(
+      ellipse 85% 55% at 50% -18%,
+      color-mix(in srgb, var(--link) 18%, transparent),
+      transparent 58%
+    ),
+    linear-gradient(180deg, var(--code-bg) 0%, var(--bg) 42%, var(--bg) 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  .page-home {
+    background:
+      radial-gradient(
+        ellipse 85% 50% at 50% -20%,
+        rgba(52, 211, 153, 0.12),
+        transparent 55%
+      ),
+      var(--bg);
+  }
+}
+
 .dashboard {
   max-width: 1120px;
   margin: 0 auto;
   padding: 28px 20px 48px;
   text-align: left;
+}
+
+.home-hero {
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.home-hero__eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted, #78716c);
+  font-family: var(--mono);
+}
+
+.home-hero__title {
+  margin: 0 0 10px;
+  font-family: var(--heading);
+  font-size: clamp(1.65rem, 4.2vw, 2.15rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.12;
+  color: var(--text-h);
+}
+
+.home-hero__lead {
+  margin: 0;
+  max-width: 40rem;
+  font-size: 0.98rem;
+  line-height: 1.55;
+  color: var(--text);
+  opacity: 0.92;
+}
+
+@media (max-width: 640px) {
+  .dashboard {
+    padding: 20px 16px 40px;
+  }
+
+  .home-hero {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+  }
+
+  .home-hero__lead {
+    font-size: 0.92rem;
+  }
 }
 
 .dashboard__header {
@@ -229,10 +303,11 @@
 
 .panel__head {
   display: flex;
-  align-items: baseline;
+  flex-wrap: wrap;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 8px;
+  gap: 10px 16px;
+  margin-bottom: 12px;
 }
 
 .panel__title {
@@ -244,6 +319,30 @@
   font-size: 0.78rem;
   opacity: 0.75;
   font-family: var(--mono);
+  line-height: 1.5;
+  text-align: right;
+  max-width: min(100%, 36rem);
+}
+
+.panel__meta a {
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--link) 35%, transparent);
+  transition:
+    color 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.panel__meta a:hover {
+  color: var(--link-hover);
+  border-bottom-color: color-mix(in srgb, var(--link-hover) 55%, transparent);
+}
+
+@media (max-width: 720px) {
+  .panel__meta {
+    text-align: left;
+    max-width: 100%;
+  }
 }
 
 .chart-box {
@@ -334,6 +433,33 @@
 
 .panel--melon {
   margin-bottom: 4px;
+  padding: 20px 20px 14px;
+}
+
+.panel--melon .panel__head {
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 12px 16px;
+}
+
+.panel--melon .panel__title {
+  flex-shrink: 0;
+  font-size: clamp(1.08rem, 2.8vw, 1.22rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  color: var(--text-h);
+}
+
+.panel--melon .panel__meta {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  text-align: right;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
 }
 
 .melon-favorites {
@@ -402,16 +528,14 @@
   font-weight: 600;
 }
 
-.melon-chart__title-cell {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
+.melon-chart__title-cell,
 .melon-chart__artist-cell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
+  box-sizing: border-box;
+  min-width: 0;
+  width: 100%;
 }
 
 .melon-chart__artist-name {
@@ -514,11 +638,6 @@
   font-weight: 500;
 }
 
-.melon-chart__table tbody td:nth-child(2),
-.melon-chart__table tbody td:nth-child(3) {
-  vertical-align: middle;
-}
-
 .panel__meta-hint {
   opacity: 0.9;
 }
@@ -535,7 +654,7 @@
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--panel-bg, var(--bg, #fff));
+  background: var(--panel-bg);
   font-weight: 600;
   font-size: 0.8rem;
   opacity: 0.9;
@@ -552,6 +671,23 @@
   max-width: 12rem;
   opacity: 0.88;
   word-break: break-word;
+}
+
+@media (max-width: 560px) {
+  .melon-chart__table th:nth-child(4),
+  .melon-chart__table td:nth-child(4) {
+    display: none;
+  }
+
+  .melon-chart__table th,
+  .melon-chart__table td {
+    padding: 8px 8px;
+    font-size: 0.84rem;
+  }
+
+  .melon-chart__rank {
+    width: 2.25rem;
+  }
 }
 
 .melon-chart__err {

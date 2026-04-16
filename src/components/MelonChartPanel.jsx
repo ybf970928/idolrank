@@ -394,14 +394,6 @@ export function MelonChartPanel() {
               times={trendOfficial.times}
               ranks={trendOfficial.ranks}
             />
-            <a
-              className="melon-modal__link"
-              href={`https://www.melon.com/song/detail.htm?songId=${selected.songId}`}
-              target="_blank"
-              rel="noreferrer"
-            >
-              在 Melon 打开此曲 →
-            </a>
           </div>
         </div>
       ) : null}
@@ -482,25 +474,27 @@ function MelonChartTableRow({
           <span className="melon-chart__song">{row.title || '—'}</span>
         </span>
       </td>
-      <td className="melon-chart__artist-cell">
-        <button
-          type="button"
-          className={`melon-fav-btn${favArtist ? ' is-on' : ''}`}
-          aria-label={
-            favArtist ? `取消收藏艺人 ${artist}` : `收藏艺人 ${artist}`
-          }
-          aria-pressed={favArtist}
-          disabled={artist === '—'}
-          title={favArtist ? '取消收藏艺人' : '收藏该艺人（合作曲合并匹配）'}
-          onClick={(e) => {
-            e.stopPropagation()
-            onToggleArtist(artist)
-          }}
-          onKeyDown={(e) => e.stopPropagation()}
-        >
-          {favArtist ? '★' : '☆'}
-        </button>
-        <span className="melon-chart__artist-name">{artist}</span>
+      <td>
+        <span className="melon-chart__artist-cell">
+          <button
+            type="button"
+            className={`melon-fav-btn${favArtist ? ' is-on' : ''}`}
+            aria-label={
+              favArtist ? `取消收藏艺人 ${artist}` : `收藏艺人 ${artist}`
+            }
+            aria-pressed={favArtist}
+            disabled={artist === '—'}
+            title={favArtist ? '取消收藏艺人' : '收藏该艺人（合作曲合并匹配）'}
+            onClick={(e) => {
+              e.stopPropagation()
+              onToggleArtist(artist)
+            }}
+            onKeyDown={(e) => e.stopPropagation()}
+          >
+            {favArtist ? '★' : '☆'}
+          </button>
+          <span className="melon-chart__artist-name">{artist}</span>
+        </span>
       </td>
       <td className="melon-chart__album">{row.album || '—'}</td>
     </tr>
