@@ -1,3 +1,5 @@
+import { MELON_API_ORIGIN } from "./melonApiBase.js"
+
 /**
  * Melon 单曲排名官方历史：服务端按 `chart/index.htm?dayTime=YYYYMMDDHH` 逐小时请求后汇总。
  */
@@ -9,15 +11,11 @@ const DEFAULT_HOURS = 24
  * @param {number} [hours]
  */
 export async function fetchMelonOfficialRankHistory(songId, hours = DEFAULT_HOURS) {
-  const u = new URL(
-    '/api/melon-song-rank-history',
-    typeof window !== 'undefined' ? window.location.origin : 'http://localhost',
-  )
-  u.searchParams.set('songId', songId)
-  u.searchParams.set('hours', String(hours))
+  const u = new URL("/api/melon-song-rank-history", MELON_API_ORIGIN)
+  u.searchParams.set("songId", songId)
+  u.searchParams.set("hours", String(hours))
 
-  const pathAndQuery = `${u.pathname}${u.search}`
-  const res = await fetch(pathAndQuery)
+  const res = await fetch(u.toString())
   const text = await res.text()
   if (!res.ok) {
     let msg = text || res.statusText

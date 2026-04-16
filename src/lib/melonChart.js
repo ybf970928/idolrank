@@ -1,9 +1,11 @@
+import { MELON_API_ORIGIN } from "./melonApiBase.js"
+
 /**
- * 经 Vite 开发/预览中间件 /api/melon-chart 拉取 Melon TOP100。
+ * 经线上 /api/melon-chart 拉取 Melon TOP100（地址见 melonApiBase.js）。
  */
 
 export async function fetchMelonChart() {
-  const res = await fetch('/api/melon-chart')
+  const res = await fetch(`${MELON_API_ORIGIN}/api/melon-chart`)
   const text = await res.text()
   if (!res.ok) {
     let msg = text || res.statusText
